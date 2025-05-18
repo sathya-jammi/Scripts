@@ -1,0 +1,23 @@
+pipeline {
+  agent any
+  tools {
+    maven "M398"
+  }
+
+  stages {
+    stage('Echo Test Version'){
+      steps {
+        sh "echo Print Maven Version"
+        sh "mvn -version"
+      }
+    }
+    stages('Build') {
+      steps {
+        sh "mvn clean package  -DskipTests=true"
+      }
+    }
+    stages('Unit Tests')
+      steps{
+        sh "mvn test"
+      }
+  }
